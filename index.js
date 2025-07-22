@@ -151,7 +151,7 @@
       <div class="input-block">
         <textarea id="entryContent" rows="6" placeholder="Share your inspiration..."></textarea>
       </div>
-      <button class="submit-btn" onclick="submitEntry()">Post Thought</button>
+      <button type="button" class="submit-btn" onclick="submitEntry()">Post Thought</button>
     </section>
 
     <section class="entries-list" id="entryFeed">
@@ -161,16 +161,26 @@
 
   <script>
     function submitEntry() {
-      const entryTitle = document.getElementById('entryTitle').value.trim();
-      const entryContent = document.getElementById('entryContent').value.trim();
-      if (entryTitle && entryContent) {
-        const newEntry = document.createElement('div');
-        newEntry.className = 'entry-card';
-        newEntry.innerHTML = `<h2>${entryTitle}</h2><p>${entryContent}</p>`;
-        document.getElementById('entryFeed').prepend(newEntry);
-        document.getElementById('entryTitle').value = '';
-        document.getElementById('entryContent').value = '';
+      const title = document.getElementById('entryTitle').value.trim();
+      const content = document.getElementById('entryContent').value.trim();
+
+      if (!title || !content) {
+        alert("Please enter both a title and content!");
+        return;
       }
+
+      const newPost = document.createElement('div');
+      newPost.className = 'entry-card';
+      newPost.innerHTML = `<h2>${title}</h2><p>${content}</p>`;
+      const feed = document.getElementById('entryFeed');
+
+      if (feed) {
+        feed.prepend(newPost);
+      }
+
+      document.getElementById('entryTitle').value = '';
+      document.getElementById('entryContent').value = '';
+      document.getElementById('entryTitle').focus();
     }
   </script>
 </body>
